@@ -1,0 +1,47 @@
+~~~PART A~~~
+
+1.400 values
+
+2.op <= Sub has 2*10*10 values = 200
+  d1 >= Four && d2 <= Six has 4*6*7 values = 168
+  cases where both are true 2*6*7 = 84
+  TOTAL INPUTS = 200 + 168 - 84 = 284
+  
+3.The only positive elements are 12 and 16, hence 20 ISN'T an element
+
+4.act :: Bool -> IO Bool
+  main:: IO Bool
+
+5.6 lines of user input is read
+
+6.foldr takes less time than foldl, 
+  because foldl has to reiterate through the concatenated strings multiple times,
+  whereas foldr does it only once per string in the list.
+  concat xs ys takes time proportional to length xs.
+  
+7.[0,0,1,2,3,4,5,6,7,8,9]
+
+8.
+f :: [a] -> a -> [a]
+f xs x = x:xs
+
+~~~PART B~~~
+
+1. a. myReplicate i x = take i xs where xs = x:xs
+   b. countFalse = length.filter not
+   c. sortBools ls = ( myReplicate (countFalse ls) False ) ++ ( filter id ls )
+   
+2. 
+encode :: Tree -> BTree
+encode (Node x ts) = BNode x (foldr mergeBT Nil (map encode ts)) Nil
+  where--
+  mergeBT :: BTree -> BTree -> BTree
+  mergeBT (BNode x bt Nil) bt' = BNode x bt bt'
+  
+3.
+decode :: BTree -> Tree
+decode (BNode x bt Nil) = Node x (treeList bt) 
+  where--
+  treeList :: BTree -> [Tree]
+  treeList Nil = []
+  treeList (BNode x lt rt) = (decode (BNode x lt Nil)) : treeList rt
