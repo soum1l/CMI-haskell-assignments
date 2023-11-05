@@ -49,9 +49,9 @@ approxRoot6 eps = head [ r | r <- approxListRoot6, abs ( evalRat (r) - root6 ) <
   
 -- Question 5 
 mss :: [Int] -> Int
-mss xs = maximum $ ( zipWith (-) (tail maxs) sums )
+mss xs = maximum $ zipWith (-) maxs sums
   where--
-  maxs = scanr1 max sums
+  maxs = tail $ scanr1 max sums
   sums = scanl (+) 0 (map (^3) xs)
 
 -- Question 6
